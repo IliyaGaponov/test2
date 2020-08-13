@@ -7,12 +7,20 @@
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
+      "schematics": {
+        "akita-schematics:component": {
+          "styleext": "scss"
+        },
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "prefix": "app",
-      "schematics": {},
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/cities-weather",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -23,12 +31,19 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -123,5 +138,13 @@
       }
     }
   },
-  "defaultProject": "cities-weather"
+  "defaultProject": "cities-weather",
+  "cli": {
+    "defaultCollection": "akita-schematics"
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
